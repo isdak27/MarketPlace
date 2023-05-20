@@ -1,13 +1,13 @@
 package model;
 
-public class Product implements Comparable<Product>{
+public class ProductStock implements Comparable<ProductStock>{
 	private String name;
 	private int code;
 	private double tax;
 	private double priceSale;
 	private int quantity;
 	
-	public Product(String name, int code, double tax, double priceSale) {
+	public ProductStock(String name, int code, double tax, double priceSale) {
 		super();
 		this.name = name;
 		this.code = code;
@@ -15,7 +15,7 @@ public class Product implements Comparable<Product>{
 		this.priceSale = priceSale;
 	}
 
-	public Product(String name, int code, double tax, double priceSale, int quantity) {
+	public ProductStock(String name, int code, double tax, double priceSale, int quantity) {
 		super();
 		this.name = name;
 		this.code = code;
@@ -44,8 +44,20 @@ public class Product implements Comparable<Product>{
 		return quantity;
 	}
 
+	protected void setTax(double tax) {
+		this.tax = tax;
+	}
+
+	protected void setPriceSale(double priceSale) {
+		this.priceSale = priceSale;
+	}
+
+	protected void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
 	@Override
-	public int compareTo(Product other) {
+	public int compareTo(ProductStock other) {
 		return Integer.compare(this.code, other.code);
 	}
 	
