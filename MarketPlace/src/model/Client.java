@@ -1,13 +1,14 @@
 package model;
 
-public class Client {
+public class Client implements Comparable<Client>{
 	private String documentType;
-	private int documentNumber;
+	private long documentNumber;
 	private String reasonSocial;
 	private String addres;
 	private String phone;
 	
-	public Client(String documentType, int documentNumber, String reasonSocial, String addres, String phone) {
+	public Client(String documentType, long documentNumber, String reasonSocial, 
+			String addres, String phone) {
 		super();
 		this.documentType = documentType;
 		this.documentNumber = documentNumber;
@@ -20,7 +21,7 @@ public class Client {
 		return documentType;
 	}
 
-	public int getDocumentNumber() {
+	public long getDocumentNumber() {
 		return documentNumber;
 	}
 
@@ -34,6 +35,11 @@ public class Client {
 
 	public String getPhone() {
 		return phone;
+	}
+
+	@Override
+	public int compareTo(Client other) {
+		return Long.compare(this.documentNumber, other.documentNumber);
 	}
 
 }
