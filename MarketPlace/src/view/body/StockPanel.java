@@ -3,8 +3,8 @@ package view.body;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -14,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 import control.Commads;
@@ -35,10 +36,15 @@ public class StockPanel extends JPanel {
 	private JTable stockTable;
 	private JButton createButton;
 	private JButton deleteButton;
+	private CreationProductPanel creation;
+	private DeleteProductPanel deleteProduct;
 
-	public StockPanel(ActionListener actionListener) {
+	public StockPanel(ActionListener actionListener,ArrayList<ProductStock> products) {
 		this.setBackground(Color.WHITE);
 		this.initComponents(actionListener);
+		creation= new CreationProductPanel(this,actionListener);
+		deleteProduct = new DeleteProductPanel(actionListener);
+		
 	}
 
 	public void initComponents(ActionListener actionListener) {
@@ -84,13 +90,11 @@ public class StockPanel extends JPanel {
 
 	}
 
-	private void openCreationProductPanel(ActionListener actionListener) {
-		CreationProductPanel creationProductPanel = new CreationProductPanel(this,actionListener);
-
+	public void openCreationProductPanel() {
 		JFrame frame = new JFrame(TextConstants.CREATE_PRODUCT_BUTTON_TEXT);
 		frame.setPreferredSize(new Dimension(900, 460));
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.getContentPane().add(creationProductPanel);
+		frame.getContentPane().add(creation);
 
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
@@ -102,13 +106,11 @@ public class StockPanel extends JPanel {
 		frame.setVisible(true);
 	}
 	
-	private void openDeleteProductPanel() {
-		DeleteProductPanel seleteProductPanel = new DeleteProductPanel();
-
+	public void openDeleteProductPanel() {
 		JFrame frame = new JFrame(TextConstants.CREATE_CUSTOMER_BUTTON_TEXT);
 		frame.setPreferredSize(new Dimension(450, 265));
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.getContentPane().add(seleteProductPanel);
+		frame.getContentPane().add(deleteProduct);
 
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
@@ -120,8 +122,7 @@ public class StockPanel extends JPanel {
 		frame.setVisible(true);
 	}
 
-	public void updateTable() {
-		List<ProductStock> products = JsonReaderWriter.readProductsFromJson();
+	public void updateTable(ArrayList<ProductStock> products) {
 		DefaultTableModel model = (DefaultTableModel) stockTable.getModel();
 		model.setRowCount(0);
 		for (ProductStock product : products) {
@@ -135,6 +136,15 @@ public class StockPanel extends JPanel {
 			model.addRow(row);
 		}
 		stockTable.repaint();
+		SwingUtilities.getWindowAncestor(creation).dispose();
+	}
+	
+	public int getDeleteActionCode() {
+		return deleteProduct.getCode();
+	}
+	
+	public ProductStock productDataReceptor() {
+		return creation.productDataReceptor();
 	}
 
 }

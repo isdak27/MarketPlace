@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 import control.Commads;
+import model.Client;
 import model.ProductStock;
 import persistence.JsonReaderWriter;
 import view.constants.ColorConstants;
@@ -65,8 +66,8 @@ public class CreationProductPanel extends JPanel {
 
 		this.add(creationCardPanel);
 	}
-
-	private void saveProduct() {
+	
+	public ProductStock productDataReceptor() {
 		String productName = name.getText();
 		int productCode = Integer.parseInt(code.getText());
 		String selectedTax = (String) tax.getSelectedItem();
@@ -74,22 +75,6 @@ public class CreationProductPanel extends JPanel {
 		double productPriceSale = Double.parseDouble(priceSale.getText());
 		int productQuantity = Integer.parseInt(quantity.getText());
 
-		ProductStock product = new ProductStock(productName, productCode, taxValue, productPriceSale, productQuantity);
-		List<ProductStock> products = JsonReaderWriter.readProductsFromJson();
-		if (products == null) {
-			products = new ArrayList<ProductStock>();
-		}
-		products.add(product);
-		boolean success = JsonReaderWriter.writeProductsToJson(products);
-		if (success) {
-			System.out.println("Producto guardado correctamente en el archivo JSON.");
-			if (stockPanel != null) {
-				stockPanel.updateTable();
-			}
-		} else {
-			System.out.println("Error al guardar el producto en el archivo JSON.");
-		}
-
-		SwingUtilities.getWindowAncestor(CreationProductPanel.this).dispose();
+		return new ProductStock(productName, productCode, taxValue, productPriceSale, productQuantity);
 	}
 }

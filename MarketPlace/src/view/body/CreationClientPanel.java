@@ -2,18 +2,14 @@ package view.body;
 
 import java.awt.Color;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 
 import control.Commads;
 import model.Client;
-import persistence.JsonReaderWriter;
 import view.constants.ColorConstants;
 import view.constants.FontConstants;
 import view.constants.TextConstants;
@@ -61,33 +57,15 @@ public class CreationClientPanel extends JPanel {
 
 		this.add(creationCardPanel);
 	}
-
-
-	private void saveClient() {
+	
+	public Client clientDataReceptor() {
 		String documentType = (String) type.getSelectedItem();
 		String reasonSocial = name.getText();
 		int documentNumber = Integer.parseInt(identification.getText());
 		String addres = address.getText();
 		String phone = number.getText();
 
-		Client newClient = new Client(documentType, documentNumber, reasonSocial, addres, phone);
-
-		List<Client> clients = JsonReaderWriter.readClientsFromJson();
-		if (clients == null) {
-			clients = new ArrayList<>();
-		}
-		clients.add(newClient);
-
-		boolean success = JsonReaderWriter.writeClientsToJson(clients);
-		if (success) {
-			System.out.println("Cliente guardado correctamente en el archivo JSON.");
-			if (clientPanel != null) {
-				clientPanel.updateTable();
-			}
-		} else {
-			System.out.println("Error al guardar el cliente en el archivo JSON.");
-		}
-
-		SwingUtilities.getWindowAncestor(CreationClientPanel.this).dispose();
+		return new Client(documentType, documentNumber, reasonSocial, addres, phone);
 	}
+
 }

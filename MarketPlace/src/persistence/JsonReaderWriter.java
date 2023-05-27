@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.Gson;
@@ -23,7 +24,7 @@ public class JsonReaderWriter {
 
 	private static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-	public static List<Client> readClientsFromJson() {
+	public static ArrayList<Client> readClientsFromJson() {
 		try {
 			File file = new File(CLIENTS_JSON_FILE);
 			if (!file.exists()) {
@@ -33,7 +34,7 @@ public class JsonReaderWriter {
 			FileReader reader = new FileReader(file);
 			Type listType = new TypeToken<List<Client>>() {
 			}.getType();
-			List<Client> clients = gson.fromJson(reader, listType);
+			ArrayList<Client> clients = gson.fromJson(reader, listType);
 			reader.close();
 			return clients;
 		} catch (IOException e) {
@@ -42,7 +43,7 @@ public class JsonReaderWriter {
 		}
 	}
 
-	public static boolean writeClientsToJson(List<Client> clients) {
+	public static boolean writeClientsToJson(ArrayList<Client> clients) {
 		try {
 			FileWriter writer = new FileWriter(CLIENTS_JSON_FILE);
 			gson.toJson(clients, writer);
@@ -54,7 +55,7 @@ public class JsonReaderWriter {
 		}
 	}
 
-	public static List<ProductStock> readProductsFromJson() {
+	public static ArrayList<ProductStock> readProductsFromJson() {
 		try {
 			File file = new File(PRODUCTS_JSON_FILE);
 			if (!file.exists()) {
@@ -64,7 +65,7 @@ public class JsonReaderWriter {
 			FileReader reader = new FileReader(file);
 			Type listType = new TypeToken<List<ProductStock>>() {
 			}.getType();
-			List<ProductStock> products = gson.fromJson(reader, listType);
+			ArrayList<ProductStock> products = gson.fromJson(reader, listType);
 			reader.close();
 			return products;
 		} catch (IOException e) {
@@ -73,7 +74,7 @@ public class JsonReaderWriter {
 		}
 	}
 
-	public static boolean writeProductsToJson(List<ProductStock> products) {
+	public static boolean writeProductsToJson(ArrayList<ProductStock> products) {
 		try {
 			FileWriter writer = new FileWriter(PRODUCTS_JSON_FILE);
 			gson.toJson(products, writer);
@@ -85,7 +86,7 @@ public class JsonReaderWriter {
 		}
 	}
 
-	public static List<Invoice> readInvoicesFromJson() {
+	public static ArrayList<Invoice> readInvoicesFromJson() {
 		try {
 			File file = new File(INVOICES_JSON_FILE);
 			if (!file.exists()) {
@@ -95,7 +96,7 @@ public class JsonReaderWriter {
 			FileReader reader = new FileReader(file);
 			Type listType = new TypeToken<List<Invoice>>() {
 			}.getType();
-			List<Invoice> invoices = gson.fromJson(reader, listType);
+			ArrayList<Invoice> invoices = gson.fromJson(reader, listType);
 			reader.close();
 			return invoices;
 		} catch (IOException e) {
@@ -104,7 +105,7 @@ public class JsonReaderWriter {
 		}
 	}
 
-	public static boolean writeInvoicesToJson(List<Invoice> invoices) {
+	public static boolean writeInvoicesToJson(ArrayList<Invoice> invoices) {
 		try {
 			FileWriter writer = new FileWriter(INVOICES_JSON_FILE);
 			gson.toJson(invoices, writer);

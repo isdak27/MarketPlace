@@ -3,8 +3,8 @@ package view.body;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -14,11 +14,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 import control.Commads;
 import model.Client;
-import persistence.JsonReaderWriter;
 import view.constants.ColorConstants;
 import view.constants.FontConstants;
 import view.constants.TextConstants;
@@ -32,13 +32,17 @@ public class ClientPanel extends JPanel {
 	private JTable clientTable;
 	private JButton createButton;
 	private JButton deleteButton;
+	private CreationClientPanel creation;
+	private DeleteClientPanel deleteClient;
 
-	public ClientPanel(ActionListener actionListener) {
+	public ClientPanel(ActionListener actionListener,ArrayList<Client> clients) {
 		this.setBackground(Color.WHITE);
-		this.initComponents(actionListener);
+		this.initComponents(actionListener,clients);
+		creation= new CreationClientPanel(this,actionListener);
+		deleteClient = new DeleteClientPanel(actionListener);
 	}
 
-	public void initComponents(ActionListener actionListener) {
+	public void initComponents(ActionListener actionListener,List<Client> clients) {
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
 		createButton = new JButton();
@@ -59,8 +63,7 @@ public class ClientPanel extends JPanel {
 		Object[][] datos = {};
 
 		DefaultTableModel model = new DefaultTableModel(datos, columnas);
-
-		List<Client> clients = JsonReaderWriter.readClientsFromJson();
+		
 		if (clients != null) {
 			for (Client client : clients) {
 				Object[] row = new Object[5];
@@ -81,12 +84,11 @@ public class ClientPanel extends JPanel {
 		this.add(scrollPane);
 	}
 
-	private void openCreationClientPanel(ActionListener actionListener) {
-		CreationClientPanel creationClientPanel = new CreationClientPanel(this,actionListener);
+	public void openCreationClientPanel() {
 		JFrame frame = new JFrame(TextConstants.CREATE_CUSTOMER_BUTTON_TEXT);
 		frame.setPreferredSize(new Dimension(900, 460));
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.getContentPane().add(creationClientPanel);
+		frame.getContentPane().add(creation);
 
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
@@ -98,13 +100,11 @@ public class ClientPanel extends JPanel {
 		frame.setVisible(true);
 	}
 	
-	private void openDeleteClientPanel() {
-		DeleteClientPanel deleteClientPanel = new DeleteClientPanel();
-
+	public void openDeleteClientPanel() {
 		JFrame frame = new JFrame(TextConstants.CREATE_CUSTOMER_BUTTON_TEXT);
 		frame.setPreferredSize(new Dimension(450, 265));
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.getContentPane().add(deleteClientPanel);
+		frame.getContentPane().add(deleteClient);
 
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
@@ -116,8 +116,7 @@ public class ClientPanel extends JPanel {
 		frame.setVisible(true);
 	}
 
-	public void updateTable() {
-		List<Client> clients = JsonReaderWriter.readClientsFromJson();
+	public void updateTable(ArrayList<Client> clients) {
 		DefaultTableModel model = (DefaultTableModel) clientTable.getModel();
 		model.setRowCount(0);
 		for (Client client : clients) {
@@ -131,6 +130,14 @@ public class ClientPanel extends JPanel {
 			model.addRow(row);
 		}
 		clientTable.repaint();
+		SwingUtilities.getWindowAncestor(creation).dispose();
 	}
 
+	public long getDeleteActionCode() {
+		return deleteClient.getIdentification();
+	}
+	
+	public Client clientDataReceptor() {
+		return creation.clientDataReceptor();
+	}
 }
