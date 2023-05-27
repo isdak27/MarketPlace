@@ -7,26 +7,22 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
 import javax.swing.JTable;
-import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 import model.ProductStock;
 import persistence.JsonReaderWriter;
 import view.constants.ColorConstants;
 import view.constants.FontConstants;
-import view.constants.ImagePathConstants;
 import view.constants.TextConstants;
 import view.utilities.BasePanel;
-import view.utilities.ButtonRenderer;
 import view.utilities.CustomTableStyle;
-import view.utilities.JComponentsUtilities;
 
 public class StockPanel extends JPanel {
 
@@ -49,21 +45,15 @@ public class StockPanel extends JPanel {
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
 		createButton = new JButton();
+		deleteButton = new JButton();
 		BasePanel panel = new BasePanel(TextConstants.STOCK_TEXT, TextConstants.CREATE_PRODUCT_BUTTON_TEXT,
-				createButton);
+				createButton, TextConstants.DELETE_PRODUCT_BUTTON_TEXT, deleteButton);
 		panel.setMaximumSize(new Dimension(1100, 180));
+		panel.setBorder(BorderFactory.createEmptyBorder(40, 0, 0, 0));
 		this.add(panel);
 
-		JSeparator separador = new JSeparator(SwingConstants.HORIZONTAL);
-		separador.setMaximumSize(new Dimension(1100, 25));
-		separador.setForeground(Color.DARK_GRAY);
-		this.add(separador);
-
-		deleteButton = new JButton();
-		JComponentsUtilities.buttonPlusOnlyImage(deleteButton, ImagePathConstants.DELETE_ICON_URL, 25, 25);
-
-		String[] columnas = { TextConstants.NAME_TEXT, TextConstants.CODE_TEXT, TextConstants.TAX_TEXT,
-				TextConstants.PRICE_TEXT, TextConstants.UNITS_TEXT, TextConstants.ACTIONS_TEXT };
+		String[] columnas = { TextConstants.PRODUCT_TEXT, TextConstants.CODE_TEXT, TextConstants.TAX_TEXT,
+				TextConstants.PRICE_TEXT, TextConstants.UNITS_TEXT };
 		Object[][] datos = {};
 
 		DefaultTableModel model = new DefaultTableModel(datos, columnas);
@@ -71,13 +61,12 @@ public class StockPanel extends JPanel {
 		List<ProductStock> products = JsonReaderWriter.readProductsFromJson();
 		if (products != null) {
 			for (ProductStock product : products) {
-				Object[] row = new Object[6];
+				Object[] row = new Object[5];
 				row[0] = product.getName();
 				row[1] = product.getCode();
 				row[2] = product.getTax();
 				row[3] = product.getPriceSale();
 				row[4] = product.getQuantity();
-				row[5] = deleteButton;
 				model.addRow(row);
 			}
 
@@ -85,11 +74,8 @@ public class StockPanel extends JPanel {
 			CustomTableStyle.customizeTable(stockTable, ColorConstants.PURPLE, Color.WHITE, Color.WHITE, Color.BLACK,
 					FontConstants.PUCK_BOLD_BOLD_FONT_18, FontConstants.PUCK_BOLD_PLAIN_FONT_14, 10, 40);
 
-			ButtonRenderer buttonRenderer = new ButtonRenderer();
-			stockTable.getColumnModel().getColumn(5).setCellRenderer(buttonRenderer);
-
 			JScrollPane scrollPane = new JScrollPane(stockTable);
-			scrollPane.setMaximumSize(new Dimension(1100, 400));
+			scrollPane.setMaximumSize(new Dimension(1100, 500));
 			this.add(scrollPane);
 		}
 
@@ -101,6 +87,11 @@ public class StockPanel extends JPanel {
 				openCreationProductPanel();
 			}
 		});
+		deleteButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				openDeleteProductPanel();
+			}
+		});
 	}
 
 	private void openCreationProductPanel() {
@@ -110,6 +101,24 @@ public class StockPanel extends JPanel {
 		frame.setPreferredSize(new Dimension(900, 460));
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().add(creationProductPanel);
+
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
+		int x = (screenSize.width - getWidth()) * 2;
+		int y = (screenSize.height - getHeight());
+
+		frame.setLocation(x, y);
+		frame.pack();
+		frame.setVisible(true);
+	}
+	
+	private void openDeleteProductPanel() {
+		DeleteProductPanel seleteProductPanel = new DeleteProductPanel();
+
+		JFrame frame = new JFrame(TextConstants.CREATE_CUSTOMER_BUTTON_TEXT);
+		frame.setPreferredSize(new Dimension(450, 265));
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.getContentPane().add(seleteProductPanel);
 
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 

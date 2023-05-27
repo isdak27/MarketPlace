@@ -11,6 +11,10 @@ public final class TextConstants {
 	public static final String CREATE_INVOICE_BUTTON_TEXT = "Crear Factura";
 	public static final String CREATE_CUSTOMER_BUTTON_TEXT = "Crear Cliente";
 	public static final String CREATE_PRODUCT_BUTTON_TEXT = "Crear Producto";
+	public static final String DELETE_INVOICE_BUTTON_TEXT = "Eliminar Factura";
+	public static final String DELETE_CUSTOMER_BUTTON_TEXT = "Eliminar Cliente";
+	public static final String DELETE_PRODUCT_BUTTON_TEXT = "Eliminar Producto";
+	public static final String ADD_PRODUCTS_TEXT = "Agregar Productos";
 	
 	public static final String INVOICE_PANEL_ID = "invoice";
 	public static final String CLIENT_PANEL_ID = "client";
@@ -49,6 +53,7 @@ public final class TextConstants {
 	
 	public static final String SAVE_BUTTON_TEXT = "Guardar";
 	public static final String ADD_BUTTON_TEXT = "Agregar";
+	public static final String DELETE_BUTTON_TEXT = "Eliminar";
 
 	public static final String EMPTY_TEXT = "             ";
 }

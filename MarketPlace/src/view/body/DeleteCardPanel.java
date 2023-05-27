@@ -3,8 +3,8 @@ package view.body;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -15,18 +15,21 @@ import view.constants.ColorConstants;
 import view.constants.FontConstants;
 import view.utilities.RoundedPanel;
 
-public class CreationInvoiceCardPanel extends JPanel {
-
+public class DeleteCardPanel extends JPanel{
+	
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
+	
 	private JLabel title;
-	private CreationDataInvoiceCardPanel creationDataInvoiceCardPanel;
-	private JButton saveInfo;
+	private JLabel codeText;
 
-	public CreationInvoiceCardPanel(String titleText, JTextField client, String clientText, JComboBox<String> term, String termText,
-			JTextField date, String dateText, JTextField product, String productText, JButton addButton, JButton save) {
+	public DeleteCardPanel(String titleText, String codeText, JTextField code, JButton delete) {
 		this.setBackground(ColorConstants.SOFT_PURPLE);
+		
 		RoundedPanel roundedPanel = new RoundedPanel(ColorConstants.LIGHT_BROWN, 30);
-		roundedPanel.setPreferredSize(new Dimension(900, 680));
+		roundedPanel.setPreferredSize(new Dimension(400, 200));
 		roundedPanel.setLayout(new BorderLayout());
 
 		title = new JLabel(titleText);
@@ -34,13 +37,21 @@ public class CreationInvoiceCardPanel extends JPanel {
 		title.setHorizontalAlignment(SwingConstants.CENTER);
 		title.setBorder(new EmptyBorder(20, 0, 0, 0));
 		roundedPanel.add(this.title, BorderLayout.NORTH);
+		
+		JPanel dataPanel = new JPanel();
+		dataPanel.setLayout(new BorderLayout());
+		dataPanel.setBackground(ColorConstants.LIGHT_BROWN);
+		dataPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
+		
+		this.codeText = new JLabel(codeText);
+		this.codeText.setFont(FontConstants.PUCK_BOLD_PLAIN_FONT_16);
+		dataPanel.add(this.codeText, BorderLayout.NORTH);
+		dataPanel.add(code, BorderLayout.CENTER);
+		
+		roundedPanel.add(dataPanel, BorderLayout.CENTER);
 
-		creationDataInvoiceCardPanel = new CreationDataInvoiceCardPanel(client, clientText, term, termText, date, dateText, product,
-				productText, addButton);
-		roundedPanel.add(creationDataInvoiceCardPanel, BorderLayout.CENTER);
-
-		this.saveInfo = save;
-		roundedPanel.add(saveInfo, BorderLayout.SOUTH);
+		roundedPanel.add(delete, BorderLayout.SOUTH);
 		this.add(roundedPanel);
 	}
+
 }
