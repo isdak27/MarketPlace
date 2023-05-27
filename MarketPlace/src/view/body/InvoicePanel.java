@@ -63,7 +63,7 @@ public class InvoicePanel extends JPanel{
 		deleteButton = new JButton();
         JComponentsUtilities.buttonPlusOnlyImage(deleteButton, ImagePathConstants.DELETE_ICON_URL, 25, 25);
         
-		String[] columnas = {"Codigo", "Cliente", "Fecha", "Plazo", "Total", "Acciones"};
+		String[] columnas = {TextConstants.CODE_TEXT, "Cliente", "Fecha", "Plazo", "Total", "Acciones"};
 	    Object[][] datos = {};
 
 	    DefaultTableModel modelo = new DefaultTableModel(datos, columnas);
