@@ -1,0 +1,23 @@
+[
+  {
+    "name": "ATUN ZENU * 160 GRM ACEITE",
+    "code": 14512,
+    "tax": 19.0,
+    "priceSale": 6100.0,
+    "quantity": 50
+  },
+  {
+    "name": "MANI 180 GR LA ESPECIAL",
+    "code": 575,
+    "tax": 19.0,
+    "priceSale": 4650.0,
+    "quantity": 20
+  },
+  {
+    "name": "ARROZ",
+    "code": 3535,
+    "tax": 16.0,
+    "priceSale": 5020.0,
+    "quantity": 50
+  }
+]

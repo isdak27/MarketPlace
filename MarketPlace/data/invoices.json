@@ -1,0 +1,30 @@
+[
+    {
+        "code": 12345,
+        "client": {
+          "documentType": "CC",
+          "documentNumber": 7411516,
+          "reasonSocial": "NICOLAI ROMANAVILA BERNAL",
+          "address": "Cra 20 # 23 23",
+          "phone": "3152658956"
+        },
+        "products": [
+          {
+            "name": "ATUN ZENU * 160 GRM ACEITE",
+            "code": 14512,
+            "tax": 19.0,
+            "priceSale": 6100.0,
+            "quantity": 5
+          },
+          {
+            "name": "ATUN ZENU * 160 GRM ACEITE",
+            "code": 14512,
+            "tax": 19.0,
+            "priceSale": 6100.0,
+            "quantity": 2
+          }
+        ],
+        "generationDate": "2023-05-25",
+        "typeTerm": "Contado"
+      }
+]

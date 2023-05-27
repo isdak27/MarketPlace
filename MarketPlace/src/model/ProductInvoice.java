@@ -28,11 +28,11 @@ public class ProductInvoice implements Comparable<ProductInvoice> {
 		return tax;
 	}
 
-	protected double getPriceSale() {
+	public double getPriceSale() {
 		return priceSale;
 	}
 
-	protected int getQuantity() {
+	public int getQuantity() {
 		return quantity;
 	}
 

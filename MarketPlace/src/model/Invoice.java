@@ -10,7 +10,7 @@ public class Invoice {
 	private ArrayList<ProductInvoice> products;
 	private Date generationDate;
 	private String typeTerm;
-	
+
 	public Invoice(Client client, ArrayList<ProductInvoice> products, Date generationDate, String typeTerm) {
 		super();
 		this.client = client;
@@ -27,27 +27,27 @@ public class Invoice {
 		this.generationDate = generationDate;
 		this.typeTerm = typeTerm;
 	}
-	
+
 	public void addinvoiceProduct(ProductInvoice OnAddProduct) {
 		if (!this.products.isEmpty()) {
 			Collections.sort(products);
-			if (Collections.binarySearch(this.products,OnAddProduct)< 0) {
+			if (Collections.binarySearch(this.products, OnAddProduct) < 0) {
 				this.products.add(OnAddProduct);
 			}
 		} else {
 			this.products.add(OnAddProduct);
 		}
 	}
-	
+
 	public void deleteInvoiceProduct(ProductInvoice onDeleteProduct) {
 		this.products.remove(onDeleteProduct);
 	}
-	
+
 	public void deleteProduct(int code) {
 		Collections.sort(this.products);
-		int index = Collections.binarySearch(this.products, new ProductInvoice(null,code, 0.0, 0.0, 0));
+		int index = Collections.binarySearch(this.products, new ProductInvoice(null, code, 0.0, 0.0, 0));
 		if (index >= 0) {
-		    this.products.remove(index);
+			this.products.remove(index);
 		}
 	}
 
