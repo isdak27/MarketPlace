@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 
-public class Invoice {
+public class Invoice implements Comparable<Invoice>{
 	private int code;
 	private Client client;
 	private ArrayList<ProductInvoice> products;
@@ -69,6 +69,11 @@ public class Invoice {
 
 	public String getTypeTerm() {
 		return typeTerm;
+	}
+
+	@Override
+	public int compareTo(Invoice other) {
+		return Integer.compare(this.code, other.code);
 	}
 
 }
