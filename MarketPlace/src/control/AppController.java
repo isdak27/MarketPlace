@@ -3,9 +3,6 @@ package control;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.List;
-
-import com.google.gson.stream.JsonWriter;
 
 import model.Client;
 import model.Invoice;
@@ -24,7 +21,7 @@ public class AppController implements ActionListener {
 		ArrayList<ProductStock> products = JsonReaderWriter.readProductsFromJson();
 		ArrayList<Invoice> invoices = JsonReaderWriter.readInvoicesFromJson();
 		backend = new Market(products, clients, invoices);
-		frontend = new PrincipalFrame( this,backend.getUsers(), backend.getStock());
+		frontend = new PrincipalFrame(this, backend.getUsers(), backend.getStock(), backend.getIssuedInvoices());
 	}
 
 	public PrincipalFrame getFrontend() {
@@ -33,12 +30,12 @@ public class AppController implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		switch (Commads
-				.valueOf(e.getActionCommand())) {
+		switch (Commads.valueOf(e.getActionCommand())) {
 		case C_ADD_CLIENT:
 			frontend.openCreationClientPanel();
 			break;
 		case C_ADD_INVOICE:
+			frontend.openCreationInvoicePanel();
 			break;
 		case C_ADD_PRODUCT:
 			frontend.openCreationProductPanel();
@@ -54,8 +51,12 @@ public class AppController implements ActionListener {
 			JsonReaderWriter.writeClientsToJson(backend.getUsers());
 			break;
 		case C_DELETE_INVOICE:
+			frontend.openDeleteInvoicePanel();
 			break;
 		case C_DELETE_INVOICE_ACTION:
+			backend.deleteInvoice(frontend.getDeleteActionCodeInvoice());
+			frontend.updateTableInvoice(backend.getIssuedInvoices());
+			JsonReaderWriter.writeInvoicesToJson(backend.getIssuedInvoices());
 			break;
 		case C_DELETE_PRODUCT:
 			frontend.openDeleteProductPanel();
@@ -71,7 +72,9 @@ public class AppController implements ActionListener {
 			JsonReaderWriter.writeClientsToJson(backend.getUsers());
 			break;
 		case C_SAVE_INVOICE:
-			
+//			backend.add(frontend.clientDataReceptor());
+//			frontend.updateTable(backend.getUsers());
+//			JsonReaderWriter.writeClientsToJson(backend.getUsers());
 			break;
 		case C_SAVE_PRODUCT:
 			backend.addProduct(frontend.productDataReceptor());
@@ -80,11 +83,11 @@ public class AppController implements ActionListener {
 			break;
 		default:
 			break;
-		
+
 		}
 
 	}
-	
+
 	public static void main(String[] args) {
 		new AppController();
 	}

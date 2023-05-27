@@ -21,20 +21,23 @@ public class CreationInvoicePanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
 	private JTextField client;
+	private JTextField code;
 	private JComboBox<String> term;
 	private JTextField date;
 	private JTextField product;
 	private JButton save;
 	private JButton addButton;
 
-	public CreationInvoicePanel(InvoicePanel invoice,ActionListener actionListener) {
+	public CreationInvoicePanel(ActionListener actionListener) {
 		this.setBackground(ColorConstants.SOFT_PURPLE);
 		this.initComponents(actionListener);
 	}
 
 	public void initComponents(ActionListener actionListener) {
 		client = new RoundedJTextField();
+		code = new RoundedJTextField();
 		term = new JComboBox<String>();
 		term.addItem(TextConstants.TERM_COUNTED_TEXT);
 		term.addItem(TextConstants.TERM_CREDIT_TEXT);
@@ -47,19 +50,27 @@ public class CreationInvoicePanel extends JPanel {
 		save.setActionCommand(Commads.C_SAVE_INVOICE.toString());
 		RoundedButton.makeRounded(save, TextConstants.SAVE_BUTTON_TEXT, 25, ColorConstants.PURPLE,
 				ColorConstants.LIGHT_BROWN, Color.WHITE, FontConstants.PUCK_BOLD_BOLD_FONT_15, 200, 50);
-		
+
 		addButton = new JButton();
 		addButton.addActionListener(actionListener);
 		addButton.setActionCommand(Commads.C_ADD_PRODUCT_INVOICE.toString());
 		RoundedButton.makeRounded(addButton, TextConstants.ADD_BUTTON_TEXT, 25, ColorConstants.PURPLE,
 				ColorConstants.LIGHT_BROWN, Color.WHITE, FontConstants.PUCK_BOLD_BOLD_FONT_15, 100, 40);
 
-		CreationInvoiceCardPanel creationInvoiceCardPanel = new CreationInvoiceCardPanel(TextConstants.CREATE_INVOICE_BUTTON_TEXT, client,
-				TextConstants.CLIENT_TEXT, term, TextConstants.TERM_TEXT, date,
-				TextConstants.DATE_TEXT, product, TextConstants.PRODUCT_TEXT, addButton, save);
+		CreationInvoiceCardPanel creationInvoiceCardPanel = new CreationInvoiceCardPanel(
+				TextConstants.CREATE_INVOICE_BUTTON_TEXT, client, TextConstants.CLIENT_TEXT, code,TextConstants.CODE_TEXT, term,
+				TextConstants.TERM_TEXT, date, TextConstants.DATE_TEXT, product, TextConstants.PRODUCT_TEXT, addButton,
+				save);
 
 		this.add(creationInvoiceCardPanel);
 	}
+	
+//	public Invoice invoiceDataReceptor() {
+//		
+//		return new Invoice(documentType, documentNumber, reasonSocial, addres, phone);
+//	}
+	
+	
 	
 //	private void saveInvoice() {
 //	    // Obtener los detalles de la factura del panel

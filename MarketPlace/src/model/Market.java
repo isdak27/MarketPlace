@@ -93,7 +93,8 @@ public class Market {
 		this.users.remove(target);
 	}
 
-	public void addInvoice(int code, Client client, ArrayList<ProductInvoice> products, Date generationDate, String typeTerm) {
+	public void addInvoice(int code, Client client, ArrayList<ProductInvoice> products, Date generationDate,
+			String typeTerm) {
 		Invoice invoiceinIssue = new Invoice(client, products, generationDate, typeTerm);
 		if (!this.issuedInvoices.isEmpty()) {
 			Collections.sort(this.issuedInvoices);
@@ -104,7 +105,7 @@ public class Market {
 			this.issuedInvoices.add(invoiceinIssue);
 		}
 	}
-	
+
 	public void addInvoice(Invoice invoiceinIssue) {
 		if (!this.issuedInvoices.isEmpty()) {
 			Collections.sort(this.issuedInvoices);

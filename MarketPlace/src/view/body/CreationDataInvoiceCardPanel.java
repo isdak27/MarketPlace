@@ -30,7 +30,7 @@ public class CreationDataInvoiceCardPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public CreationDataInvoiceCardPanel(JTextField client, String clientText, JComboBox<String> term, String termText,
+	public CreationDataInvoiceCardPanel(JTextField client, String clientText, JTextField code, String codeText, JComboBox<String> term, String termText,
 			JTextField date, String dateText, JTextField product, String productText, JButton addButton) {
 		this.setBackground(ColorConstants.LIGHT_BROWN);
 		this.setBorder(new EmptyBorder(50, 10, 50, 10));
@@ -38,6 +38,8 @@ public class CreationDataInvoiceCardPanel extends JPanel {
 
 		JLabel clientDescription = new JLabel(clientText);
 		clientDescription.setFont(FontConstants.PUCK_BOLD_PLAIN_FONT_16);
+		JLabel codeDescription = new JLabel(codeText);
+		codeDescription.setFont(FontConstants.PUCK_BOLD_PLAIN_FONT_16);
 		JLabel termDescription = new JLabel(termText);
 		termDescription.setFont(FontConstants.PUCK_BOLD_PLAIN_FONT_16);
 		JLabel dateDescription = new JLabel(dateText);
@@ -49,12 +51,14 @@ public class CreationDataInvoiceCardPanel extends JPanel {
 
 		JPanel basicData = new JPanel();
 		basicData.setBackground(ColorConstants.LIGHT_BROWN);
-		basicData.setLayout(new GridLayout(2, 3));
+		basicData.setLayout(new GridLayout(2, 4));
 		basicData.setBorder(BorderFactory.createEmptyBorder(0, 0, 30, 0));
 		basicData.add(clientDescription);
+		basicData.add(codeDescription);
 		basicData.add(termDescription);
 		basicData.add(dateDescription);
 		basicData.add(client);
+		basicData.add(code);
 		basicData.add(term);
 		basicData.add(date);
 

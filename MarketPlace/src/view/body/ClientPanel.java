@@ -35,14 +35,14 @@ public class ClientPanel extends JPanel {
 	private CreationClientPanel creation;
 	private DeleteClientPanel deleteClient;
 
-	public ClientPanel(ActionListener actionListener,ArrayList<Client> clients) {
+	public ClientPanel(ActionListener actionListener, ArrayList<Client> clients) {
 		this.setBackground(Color.WHITE);
-		this.initComponents(actionListener,clients);
-		creation= new CreationClientPanel(this,actionListener);
+		this.initComponents(actionListener, clients);
+		creation = new CreationClientPanel(actionListener);
 		deleteClient = new DeleteClientPanel(actionListener);
 	}
 
-	public void initComponents(ActionListener actionListener,List<Client> clients) {
+	public void initComponents(ActionListener actionListener, List<Client> clients) {
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
 		createButton = new JButton();
@@ -63,7 +63,7 @@ public class ClientPanel extends JPanel {
 		Object[][] datos = {};
 
 		DefaultTableModel model = new DefaultTableModel(datos, columnas);
-		
+
 		if (clients != null) {
 			for (Client client : clients) {
 				Object[] row = new Object[5];
@@ -99,7 +99,7 @@ public class ClientPanel extends JPanel {
 		frame.pack();
 		frame.setVisible(true);
 	}
-	
+
 	public void openDeleteClientPanel() {
 		JFrame frame = new JFrame(TextConstants.CREATE_CUSTOMER_BUTTON_TEXT);
 		frame.setPreferredSize(new Dimension(450, 265));
@@ -120,13 +120,12 @@ public class ClientPanel extends JPanel {
 		DefaultTableModel model = (DefaultTableModel) clientTable.getModel();
 		model.setRowCount(0);
 		for (Client client : clients) {
-			Object[] row = new Object[6];
+			Object[] row = new Object[5];
 			row[0] = client.getReasonSocial();
 			row[1] = client.getDocumentType();
 			row[2] = client.getDocumentNumber();
 			row[3] = client.getAddress();
 			row[4] = client.getPhone();
-			row[5] = deleteButton;
 			model.addRow(row);
 		}
 		clientTable.repaint();
@@ -136,7 +135,7 @@ public class ClientPanel extends JPanel {
 	public long getDeleteActionCode() {
 		return deleteClient.getIdentification();
 	}
-	
+
 	public Client clientDataReceptor() {
 		return creation.clientDataReceptor();
 	}

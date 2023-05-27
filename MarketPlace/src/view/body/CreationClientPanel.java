@@ -25,10 +25,8 @@ public class CreationClientPanel extends JPanel {
 	private JTextField address;
 	private JTextField number;
 	private JButton save;
-	private ClientPanel clientPanel;
 
-	public CreationClientPanel(ClientPanel clientPanel,ActionListener actionListener) {
-		this.clientPanel = clientPanel;
+	public CreationClientPanel(ActionListener actionListener) {
 		this.setBackground(ColorConstants.SOFT_PURPLE);
 		this.initComponents(actionListener);
 	}
@@ -57,7 +55,7 @@ public class CreationClientPanel extends JPanel {
 
 		this.add(creationCardPanel);
 	}
-	
+
 	public Client clientDataReceptor() {
 		String documentType = (String) type.getSelectedItem();
 		String reasonSocial = name.getText();

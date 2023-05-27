@@ -1,21 +1,15 @@
 package view.body;
 
 import java.awt.Color;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 
 import control.Commads;
-import model.Client;
 import model.ProductStock;
-import persistence.JsonReaderWriter;
 import view.constants.ColorConstants;
 import view.constants.FontConstants;
 import view.constants.TextConstants;
@@ -34,10 +28,8 @@ public class CreationProductPanel extends JPanel {
 	private JTextField code;
 	private JTextField quantity;
 	private JButton save;
-	private StockPanel stockPanel;
 
-	public CreationProductPanel(StockPanel stockPanel,ActionListener actionListener) {
-		this.stockPanel = stockPanel;
+	public CreationProductPanel(ActionListener actionListener) {
 		this.setBackground(ColorConstants.SOFT_PURPLE);
 		this.initComponents(actionListener);
 	}
@@ -66,7 +58,7 @@ public class CreationProductPanel extends JPanel {
 
 		this.add(creationCardPanel);
 	}
-	
+
 	public ProductStock productDataReceptor() {
 		String productName = name.getText();
 		int productCode = Integer.parseInt(code.getText());

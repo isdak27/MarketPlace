@@ -3,8 +3,8 @@ package view.body;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -14,9 +14,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 import control.Commads;
+import model.Client;
 import model.Invoice;
 import model.ProductInvoice;
 import persistence.JsonReaderWriter;
@@ -36,10 +38,14 @@ public class InvoicePanel extends JPanel {
 	private JTable invoiceTable;
 	private JButton createButton;
 	private JButton deleteButton;
+	private CreationInvoicePanel creation;
+	private DeleteInvoicePanel deleteInvoice;
 
-	public InvoicePanel(ActionListener actionListener) {
+	public InvoicePanel(ActionListener actionListener,ArrayList<Invoice> invoice) {
 		this.setBackground(Color.WHITE);
 		this.initComponents(actionListener);
+		creation = new CreationInvoicePanel(actionListener);
+		deleteInvoice = new DeleteInvoicePanel(actionListener);
 	}
 
 	public void initComponents(ActionListener actionListener) {
@@ -78,13 +84,11 @@ public class InvoicePanel extends JPanel {
 		return createButton;
 	}
 
-	private void openCreationInvoicePanel(ActionListener actionListener) {
-		CreationInvoicePanel creationInvoicePanel = new CreationInvoicePanel(this,actionListener);
-
+	public void openCreationInvoicePanel() {
 		JFrame frame = new JFrame(TextConstants.CREATE_PRODUCT_BUTTON_TEXT);
 		frame.setPreferredSize(new Dimension(1000, 750));
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.getContentPane().add(creationInvoicePanel);
+		frame.getContentPane().add(creation);
 
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
@@ -96,13 +100,11 @@ public class InvoicePanel extends JPanel {
 		frame.setVisible(true);
 	}
 	
-	private void openDeleteInvoicePanel() {
-		DeleteInvoicePanel deleteInvoicePanel = new DeleteInvoicePanel();
-
+	public void openDeleteInvoicePanel() {
 		JFrame frame = new JFrame(TextConstants.CREATE_CUSTOMER_BUTTON_TEXT);
 		frame.setPreferredSize(new Dimension(450, 265));
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.getContentPane().add(deleteInvoicePanel);
+		frame.getContentPane().add(deleteInvoice);
 
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
@@ -114,7 +116,7 @@ public class InvoicePanel extends JPanel {
 		frame.setVisible(true);
 	}
 	
-	private void loadInvoicesFromJson() {
+	public void loadInvoicesFromJson() {
 		List<Invoice> invoices = JsonReaderWriter.readInvoicesFromJson();
 		if (invoices != null) {
 			DefaultTableModel model = (DefaultTableModel) invoiceTable.getModel();
@@ -129,6 +131,22 @@ public class InvoicePanel extends JPanel {
 			}
 		}
 	}
+	
+	public void updateTable(ArrayList<Invoice> invoices) {
+		DefaultTableModel model = (DefaultTableModel) invoiceTable.getModel();
+		model.setRowCount(0);
+		for (Invoice invoice : invoices) {
+			Object[] row = new Object[5];
+			row[0] = invoice.getCode();
+			row[1] = invoice.getClient().getReasonSocial();
+			row[2] = invoice.getGenerationDate();
+			row[3] = invoice.getTypeTerm();
+			row[4] = calculateTotal(invoice);
+			model.addRow(row);
+		}
+		invoiceTable.repaint();
+		SwingUtilities.getWindowAncestor(creation).dispose();
+	}
 
 	private double calculateTotal(Invoice invoice) {
 		double total = 0.0;
@@ -137,5 +155,13 @@ public class InvoicePanel extends JPanel {
 		}
 		return total;
 	}
+	
+	public int getDeleteActionCode() {
+		return deleteInvoice.getCode();
+	}
+
+//	public Invoice invoiceDataReceptor() {
+//		return creation.invoiceDataReceptor();
+//	}
 
 }

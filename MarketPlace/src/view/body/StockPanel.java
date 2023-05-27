@@ -39,12 +39,12 @@ public class StockPanel extends JPanel {
 	private CreationProductPanel creation;
 	private DeleteProductPanel deleteProduct;
 
-	public StockPanel(ActionListener actionListener,ArrayList<ProductStock> products) {
+	public StockPanel(ActionListener actionListener, ArrayList<ProductStock> products) {
 		this.setBackground(Color.WHITE);
 		this.initComponents(actionListener);
-		creation= new CreationProductPanel(this,actionListener);
+		creation = new CreationProductPanel(actionListener);
 		deleteProduct = new DeleteProductPanel(actionListener);
-		
+
 	}
 
 	public void initComponents(ActionListener actionListener) {
@@ -105,7 +105,7 @@ public class StockPanel extends JPanel {
 		frame.pack();
 		frame.setVisible(true);
 	}
-	
+
 	public void openDeleteProductPanel() {
 		JFrame frame = new JFrame(TextConstants.CREATE_CUSTOMER_BUTTON_TEXT);
 		frame.setPreferredSize(new Dimension(450, 265));
@@ -126,23 +126,22 @@ public class StockPanel extends JPanel {
 		DefaultTableModel model = (DefaultTableModel) stockTable.getModel();
 		model.setRowCount(0);
 		for (ProductStock product : products) {
-			Object[] row = new Object[6];
+			Object[] row = new Object[5];
 			row[0] = product.getName();
 			row[1] = product.getCode();
 			row[2] = product.getTax();
 			row[3] = product.getPriceSale();
 			row[4] = product.getQuantity();
-			row[5] = deleteButton;
 			model.addRow(row);
 		}
 		stockTable.repaint();
 		SwingUtilities.getWindowAncestor(creation).dispose();
 	}
-	
+
 	public int getDeleteActionCode() {
 		return deleteProduct.getCode();
 	}
-	
+
 	public ProductStock productDataReceptor() {
 		return creation.productDataReceptor();
 	}

@@ -22,7 +22,7 @@ public class CreationInvoiceCardPanel extends JPanel {
 	private CreationDataInvoiceCardPanel creationDataInvoiceCardPanel;
 	private JButton saveInfo;
 
-	public CreationInvoiceCardPanel(String titleText, JTextField client, String clientText, JComboBox<String> term, String termText,
+	public CreationInvoiceCardPanel(String titleText, JTextField client, String clientText, JTextField code, String codeText, JComboBox<String> term, String termText,
 			JTextField date, String dateText, JTextField product, String productText, JButton addButton, JButton save) {
 		this.setBackground(ColorConstants.SOFT_PURPLE);
 		RoundedPanel roundedPanel = new RoundedPanel(ColorConstants.LIGHT_BROWN, 30);
@@ -35,7 +35,7 @@ public class CreationInvoiceCardPanel extends JPanel {
 		title.setBorder(new EmptyBorder(20, 0, 0, 0));
 		roundedPanel.add(this.title, BorderLayout.NORTH);
 
-		creationDataInvoiceCardPanel = new CreationDataInvoiceCardPanel(client, clientText, term, termText, date, dateText, product,
+		creationDataInvoiceCardPanel = new CreationDataInvoiceCardPanel(client, clientText, code, codeText, term, termText, date, dateText, product,
 				productText, addButton);
 		roundedPanel.add(creationDataInvoiceCardPanel, BorderLayout.CENTER);
 

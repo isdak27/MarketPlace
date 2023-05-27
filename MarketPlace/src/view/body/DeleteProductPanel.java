@@ -37,9 +37,9 @@ public class DeleteProductPanel extends JPanel {
 				TextConstants.CODE_TEXT, code, deleteButton);
 		this.add(deleteCardPanel);
 	}
-	
+
 	public int getCode() {
-		return  Integer.valueOf(code.getText());
+		return Integer.valueOf(code.getText());
 	}
 
 	public JButton getDeleteButton() {

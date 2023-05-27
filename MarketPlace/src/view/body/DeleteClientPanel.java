@@ -25,7 +25,7 @@ public class DeleteClientPanel extends JPanel {
 	private JButton deleteButton;
 
 	public DeleteClientPanel(ActionListener actionListener) {
-		
+
 		this.setBackground(ColorConstants.SOFT_PURPLE);
 		identification = new RoundedJTextField();
 		deleteButton = new JButton();
@@ -40,13 +40,11 @@ public class DeleteClientPanel extends JPanel {
 	}
 
 	public long getIdentification() {
-		return  Long.valueOf(identification.getText());
+		return Long.valueOf(identification.getText());
 	}
 
 	public JButton getDeleteButton() {
 		return deleteButton;
 	}
-	
-	
 
 }
