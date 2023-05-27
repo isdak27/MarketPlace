@@ -16,6 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import control.Commads;
 import model.Client;
 import persistence.JsonReaderWriter;
 import view.constants.ColorConstants;
@@ -32,17 +33,20 @@ public class ClientPanel extends JPanel {
 	private JButton createButton;
 	private JButton deleteButton;
 
-	public ClientPanel() {
+	public ClientPanel(ActionListener actionListener) {
 		this.setBackground(Color.WHITE);
-		this.initComponents();
-		this.setupListeners();
+		this.initComponents(actionListener);
 	}
 
-	public void initComponents() {
+	public void initComponents(ActionListener actionListener) {
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
 		createButton = new JButton();
+		createButton.addActionListener(actionListener);
+		createButton.setActionCommand(Commads.C_ADD_CLIENT.toString());
 		deleteButton = new JButton();
+		deleteButton.addActionListener(actionListener);
+		deleteButton.setActionCommand(Commads.C_DELETE_CLIENT.toString());
 		BasePanel panel = new BasePanel(TextConstants.CLIENTS_TEXT, TextConstants.CREATE_CUSTOMER_BUTTON_TEXT,
 				createButton, TextConstants.DELETE_CUSTOMER_BUTTON_TEXT, deleteButton);
 		panel.setMaximumSize(new Dimension(1100, 180));
@@ -77,22 +81,8 @@ public class ClientPanel extends JPanel {
 		this.add(scrollPane);
 	}
 
-	private void setupListeners() {
-		createButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				openCreationClientPanel();
-			}
-		});
-		deleteButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				openDeleteClientPanel();
-			}
-		});
-	}
-
-	private void openCreationClientPanel() {
-		CreationClientPanel creationClientPanel = new CreationClientPanel(this);
-
+	private void openCreationClientPanel(ActionListener actionListener) {
+		CreationClientPanel creationClientPanel = new CreationClientPanel(this,actionListener);
 		JFrame frame = new JFrame(TextConstants.CREATE_CUSTOMER_BUTTON_TEXT);
 		frame.setPreferredSize(new Dimension(900, 460));
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

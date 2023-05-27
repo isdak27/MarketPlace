@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
+import control.Commads;
 import model.ProductStock;
 import persistence.JsonReaderWriter;
 import view.constants.ColorConstants;
@@ -34,14 +35,13 @@ public class CreationProductPanel extends JPanel {
 	private JButton save;
 	private StockPanel stockPanel;
 
-	public CreationProductPanel(StockPanel stockPanel) {
+	public CreationProductPanel(StockPanel stockPanel,ActionListener actionListener) {
 		this.stockPanel = stockPanel;
 		this.setBackground(ColorConstants.SOFT_PURPLE);
-		this.initComponents();
-		this.setupListeners();
+		this.initComponents(actionListener);
 	}
 
-	public void initComponents() {
+	public void initComponents(ActionListener actionListener) {
 		name = new RoundedJTextField();
 		tax = new JComboBox<String>();
 		tax.addItem(TextConstants.TAX_0_TEXT);
@@ -54,6 +54,8 @@ public class CreationProductPanel extends JPanel {
 		code = new RoundedJTextField();
 		quantity = new RoundedJTextField();
 		save = new JButton();
+		save.addActionListener(actionListener);
+		save.setActionCommand(Commads.C_SAVE_PRODUCT.toString());
 		RoundedButton.makeRounded(save, TextConstants.SAVE_BUTTON_TEXT, 25, ColorConstants.PURPLE,
 				ColorConstants.LIGHT_BROWN, Color.WHITE, FontConstants.PUCK_BOLD_BOLD_FONT_15, 200, 50);
 
@@ -62,14 +64,6 @@ public class CreationProductPanel extends JPanel {
 				TextConstants.CODE_TEXT, quantity, TextConstants.UNITS_TEXT, save);
 
 		this.add(creationCardPanel);
-	}
-
-	private void setupListeners() {
-		save.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				saveProduct();
-			}
-		});
 	}
 
 	private void saveProduct() {

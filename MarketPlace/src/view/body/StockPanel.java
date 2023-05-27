@@ -16,6 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import control.Commads;
 import model.ProductStock;
 import persistence.JsonReaderWriter;
 import view.constants.ColorConstants;
@@ -35,17 +36,19 @@ public class StockPanel extends JPanel {
 	private JButton createButton;
 	private JButton deleteButton;
 
-	public StockPanel() {
+	public StockPanel(ActionListener actionListener) {
 		this.setBackground(Color.WHITE);
-		this.initComponents();
-		this.setupListeners();
+		this.initComponents(actionListener);
 	}
 
-	public void initComponents() {
+	public void initComponents(ActionListener actionListener) {
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
 		createButton = new JButton();
+		createButton.addActionListener(actionListener);
+		createButton.setActionCommand(Commads.C_ADD_PRODUCT.toString());
 		deleteButton = new JButton();
+		deleteButton.addActionListener(actionListener);
+		deleteButton.setActionCommand(Commads.C_DELETE_PRODUCT.toString());
 		BasePanel panel = new BasePanel(TextConstants.STOCK_TEXT, TextConstants.CREATE_PRODUCT_BUTTON_TEXT,
 				createButton, TextConstants.DELETE_PRODUCT_BUTTON_TEXT, deleteButton);
 		panel.setMaximumSize(new Dimension(1100, 180));
@@ -81,21 +84,8 @@ public class StockPanel extends JPanel {
 
 	}
 
-	private void setupListeners() {
-		createButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				openCreationProductPanel();
-			}
-		});
-		deleteButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				openDeleteProductPanel();
-			}
-		});
-	}
-
-	private void openCreationProductPanel() {
-		CreationProductPanel creationProductPanel = new CreationProductPanel(this);
+	private void openCreationProductPanel(ActionListener actionListener) {
+		CreationProductPanel creationProductPanel = new CreationProductPanel(this,actionListener);
 
 		JFrame frame = new JFrame(TextConstants.CREATE_PRODUCT_BUTTON_TEXT);
 		frame.setPreferredSize(new Dimension(900, 460));

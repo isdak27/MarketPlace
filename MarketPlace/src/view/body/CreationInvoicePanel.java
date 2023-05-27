@@ -1,12 +1,14 @@
 package view.body;
 
 import java.awt.Color;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import control.Commads;
 import view.constants.ColorConstants;
 import view.constants.FontConstants;
 import view.constants.TextConstants;
@@ -26,12 +28,12 @@ public class CreationInvoicePanel extends JPanel {
 	private JButton save;
 	private JButton addButton;
 
-	public CreationInvoicePanel() {
+	public CreationInvoicePanel(InvoicePanel invoice,ActionListener actionListener) {
 		this.setBackground(ColorConstants.SOFT_PURPLE);
-		this.initComponents();
+		this.initComponents(actionListener);
 	}
 
-	public void initComponents() {
+	public void initComponents(ActionListener actionListener) {
 		client = new RoundedJTextField();
 		term = new JComboBox<String>();
 		term.addItem(TextConstants.TERM_COUNTED_TEXT);
@@ -41,10 +43,14 @@ public class CreationInvoicePanel extends JPanel {
 		date = new RoundedJTextField();
 		product = new RoundedJTextField();
 		save = new JButton();
+		save.addActionListener(actionListener);
+		save.setActionCommand(Commads.C_SAVE_INVOICE.toString());
 		RoundedButton.makeRounded(save, TextConstants.SAVE_BUTTON_TEXT, 25, ColorConstants.PURPLE,
 				ColorConstants.LIGHT_BROWN, Color.WHITE, FontConstants.PUCK_BOLD_BOLD_FONT_15, 200, 50);
 		
 		addButton = new JButton();
+		addButton.addActionListener(actionListener);
+		addButton.setActionCommand(Commads.C_ADD_PRODUCT_INVOICE.toString());
 		RoundedButton.makeRounded(addButton, TextConstants.ADD_BUTTON_TEXT, 25, ColorConstants.PURPLE,
 				ColorConstants.LIGHT_BROWN, Color.WHITE, FontConstants.PUCK_BOLD_BOLD_FONT_15, 100, 40);
 

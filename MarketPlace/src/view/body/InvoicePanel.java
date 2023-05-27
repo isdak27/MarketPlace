@@ -16,6 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import control.Commads;
 import model.Invoice;
 import model.ProductInvoice;
 import persistence.JsonReaderWriter;
@@ -36,17 +37,20 @@ public class InvoicePanel extends JPanel {
 	private JButton createButton;
 	private JButton deleteButton;
 
-	public InvoicePanel() {
+	public InvoicePanel(ActionListener actionListener) {
 		this.setBackground(Color.WHITE);
-		this.initComponents();
-		this.setupListeners();
+		this.initComponents(actionListener);
 	}
 
-	public void initComponents() {
+	public void initComponents(ActionListener actionListener) {
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
 		createButton = new JButton();
+		createButton.addActionListener(actionListener);
+		createButton.setActionCommand(Commads.C_ADD_INVOICE.toString());
 		deleteButton = new JButton();
+		deleteButton.addActionListener(actionListener);
+		deleteButton.setActionCommand(Commads.C_DELETE_INVOICE.toString());
 		BasePanel panel = new BasePanel(TextConstants.INVOICES_TEXT, TextConstants.CREATE_INVOICE_BUTTON_TEXT,
 				createButton, TextConstants.DELETE_INVOICE_BUTTON_TEXT, deleteButton);
 		panel.setMaximumSize(new Dimension(1100, 180));
@@ -74,21 +78,8 @@ public class InvoicePanel extends JPanel {
 		return createButton;
 	}
 
-	private void setupListeners() {
-		createButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				openCreationInvoicePanel();
-			}
-		});
-		deleteButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				openDeleteInvoicePanel();
-			}
-		});
-	}
-
-	private void openCreationInvoicePanel() {
-		CreationInvoicePanel creationInvoicePanel = new CreationInvoicePanel();
+	private void openCreationInvoicePanel(ActionListener actionListener) {
+		CreationInvoicePanel creationInvoicePanel = new CreationInvoicePanel(this,actionListener);
 
 		JFrame frame = new JFrame(TextConstants.CREATE_PRODUCT_BUTTON_TEXT);
 		frame.setPreferredSize(new Dimension(1000, 750));

@@ -10,7 +10,7 @@ public class AppController implements ActionListener {
 	private PrincipalFrame frontend;
 
 	public AppController() {
-		frontend = new PrincipalFrame();
+		frontend = new PrincipalFrame(this);
 	}
 
 	public PrincipalFrame getFrontend() {

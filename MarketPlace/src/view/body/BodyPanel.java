@@ -22,11 +22,11 @@ public class BodyPanel extends JPanel implements ActionListener {
     private ClientPanel clientPanel;
     private StockPanel stockPanel;
 
-    public BodyPanel() {
-        this.initComponents();
+    public BodyPanel(ActionListener actionListener) {
+        this.initComponents(actionListener);
     }
 
-    public void initComponents() {
+    public void initComponents(ActionListener actionListener) {
         this.setLayout(new BorderLayout());
 
         menuPanel = new MenuPanel();
@@ -34,13 +34,13 @@ public class BodyPanel extends JPanel implements ActionListener {
 
         centralPanel = new JPanel(new CardLayout());
 
-        invoicePanel = new InvoicePanel();
+        invoicePanel = new InvoicePanel(actionListener);
         centralPanel.add(invoicePanel, TextConstants.INVOICE_PANEL_ID);
 
-        clientPanel = new ClientPanel();
+        clientPanel = new ClientPanel(actionListener);
         centralPanel.add(clientPanel, TextConstants.CLIENT_PANEL_ID);
 
-        stockPanel = new StockPanel();
+        stockPanel = new StockPanel(actionListener);
         centralPanel.add(stockPanel, TextConstants.STOCK_PANEL_ID);
 
         this.add(centralPanel, BorderLayout.CENTER);

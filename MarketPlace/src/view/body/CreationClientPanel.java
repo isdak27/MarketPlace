@@ -1,7 +1,6 @@
 package view.body;
 
 import java.awt.Color;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
+import control.Commads;
 import model.Client;
 import persistence.JsonReaderWriter;
 import view.constants.ColorConstants;
@@ -31,14 +31,13 @@ public class CreationClientPanel extends JPanel {
 	private JButton save;
 	private ClientPanel clientPanel;
 
-	public CreationClientPanel(ClientPanel clientPanel) {
+	public CreationClientPanel(ClientPanel clientPanel,ActionListener actionListener) {
 		this.clientPanel = clientPanel;
 		this.setBackground(ColorConstants.SOFT_PURPLE);
-		this.initComponents();
-		this.setupListeners();
+		this.initComponents(actionListener);
 	}
 
-	public void initComponents() {
+	public void initComponents(ActionListener actionListener) {
 		name = new RoundedJTextField();
 		type = new JComboBox<String>();
 		type.addItem(TextConstants.TYPE_IDENTIFICATION_TI_TEXT);
@@ -50,6 +49,8 @@ public class CreationClientPanel extends JPanel {
 		address = new RoundedJTextField();
 		number = new RoundedJTextField();
 		save = new JButton();
+		save.addActionListener(actionListener);
+		save.setActionCommand(Commads.C_SAVE_CLIENT.toString());
 		RoundedButton.makeRounded(save, TextConstants.SAVE_BUTTON_TEXT, 25, ColorConstants.PURPLE,
 				ColorConstants.LIGHT_BROWN, Color.WHITE, FontConstants.PUCK_BOLD_BOLD_FONT_15, 200, 50);
 
@@ -61,13 +62,6 @@ public class CreationClientPanel extends JPanel {
 		this.add(creationCardPanel);
 	}
 
-	private void setupListeners() {
-		save.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				saveClient();
-			}
-		});
-	}
 
 	private void saveClient() {
 		String documentType = (String) type.getSelectedItem();
