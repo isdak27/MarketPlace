@@ -104,7 +104,7 @@ public class Market {
 
 	public void addInvoice(int code, Client client, ArrayList<ProductInvoice> products, Date generationDate,
 			String typeTerm) {
-		Invoice invoiceinIssue = new Invoice(client, products, generationDate, typeTerm);
+		Invoice invoiceinIssue = new Invoice(code,client, products, generationDate, typeTerm);
 		if (!this.issuedInvoices.isEmpty()) {
 			Collections.sort(this.issuedInvoices);
 			if (Collections.binarySearch(this.issuedInvoices, invoiceinIssue) < 0) {
@@ -117,7 +117,8 @@ public class Market {
 	
 	public void addInvoice(int code,long documentNumber, ArrayList<ProductInvoice> products, Date generationDate,
 			String typeTerm) {
-		Invoice invoiceinIssue = new Invoice(client, products, generationDate, typeTerm);
+		Client client= this.clientSearch(documentNumber);
+		Invoice invoiceinIssue = new Invoice(code,client, products, generationDate, typeTerm);
 		if (!this.issuedInvoices.isEmpty()) {
 			Collections.sort(this.issuedInvoices);
 			if (Collections.binarySearch(this.issuedInvoices, invoiceinIssue) < 0) {
@@ -128,6 +129,20 @@ public class Market {
 		}
 	}
 
+	public void addInvoice(int code,long documentNumber, Date generationDate,
+			String typeTerm) {
+		Client client= this.clientSearch(documentNumber);
+		Invoice invoiceinIssue = new Invoice(code,client, generationDate, typeTerm);
+		if (!this.issuedInvoices.isEmpty()) {
+			Collections.sort(this.issuedInvoices);
+			if (Collections.binarySearch(this.issuedInvoices, invoiceinIssue) < 0) {
+				this.issuedInvoices.add(invoiceinIssue);
+			}
+		} else {
+			this.issuedInvoices.add(invoiceinIssue);
+		}
+	}
+	
 	public void addInvoice(Invoice invoiceinIssue) {
 		if (!this.issuedInvoices.isEmpty()) {
 			Collections.sort(this.issuedInvoices);
@@ -156,6 +171,16 @@ public class Market {
 				target.setQuantity(target.getQuantity() - quantity);
 			}
 		}
+	}
+	
+	public Invoice searchInvoice(int code) {
+		Invoice invoiceinIssue = new Invoice(code, null, null, null, null);
+		Collections.sort(this.issuedInvoices);
+		int position = Collections.binarySearch(this.issuedInvoices, invoiceinIssue);
+		if(position>= 0) {
+			return this.issuedInvoices.get(position);
+		}
+		return null;
 	}
 
 	public void deleteInvoiceProduct(Invoice invoiceinIssue, int code) {

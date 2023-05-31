@@ -11,14 +11,6 @@ public class Invoice implements Comparable<Invoice> {
 	private Date generationDate;
 	private String typeTerm;
 
-	public Invoice(Client client, ArrayList<ProductInvoice> products, Date generationDate, String typeTerm) {
-		super();
-		this.client = client;
-		this.products = products;
-		this.generationDate = generationDate;
-		this.typeTerm = typeTerm;
-	}
-
 	public Invoice(int code, Client client, ArrayList<ProductInvoice> products, Date generationDate, String typeTerm) {
 		super();
 		this.code = code;
