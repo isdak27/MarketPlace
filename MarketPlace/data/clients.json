@@ -1,31 +1,10 @@
 [
   {
     "documentType": "CC",
-    "documentNumber": 7411516,
-    "reasonSocial": "NICOLAI ROMANAVILA BERNAL",
-    "address": "Cra 20 # 23 23",
-    "phone": "3152658956"
-  },
-  {
-    "documentType": "NIT",
-    "documentNumber": 860054978,
-    "reasonSocial": "ADISPETROLS.A.S",
-    "address": "Cra 4 # 4c 03",
-    "phone": "3125623984"
-  },
-  {
-    "documentType": "NIT",
-    "documentNumber": 800186960,
-    "reasonSocial": "ALTIPAL SAS",
-    "address": "Cll 7 # 21 - 1",
-    "phone": "3125623984"
-  },
-  {
-    "documentType": "CC",
-    "documentNumber": 1002538275,
-    "reasonSocial": "CRISTIAN YESID BECERRA",
-    "address": "Cll 9 # 14 - 05",
-    "phone": "3132425135"
+    "documentNumber": 2361541,
+    "reasonSocial": "MANUEL",
+    "address": "CLL 8A - 32",
+    "phone": "314412555"
   },
   {
     "documentType": "CC",
@@ -36,9 +15,30 @@
   },
   {
     "documentType": "CC",
-    "documentNumber": 235413,
-    "reasonSocial": "JAIRO",
-    "address": "CRA R5657 ",
-    "phone": "4135413"
+    "documentNumber": 7411516,
+    "reasonSocial": "NICOLAI ROMANAVILA BERNAL",
+    "address": "Cra 20 # 23 23",
+    "phone": "3152658956"
+  },
+  {
+    "documentType": "NIT",
+    "documentNumber": 800186960,
+    "reasonSocial": "ALTIPAL SAS",
+    "address": "Cll 7 # 21 - 1",
+    "phone": "3125623984"
+  },
+  {
+    "documentType": "NIT",
+    "documentNumber": 860054978,
+    "reasonSocial": "ADISPETROLS.A.S",
+    "address": "Cra 4 # 4c 03",
+    "phone": "3125623984"
+  },
+  {
+    "documentType": "CC",
+    "documentNumber": 1002538275,
+    "reasonSocial": "CRISTIAN YESID BECERRA",
+    "address": "Cll 9 # 14 - 05",
+    "phone": "3132425135"
   }
 ]

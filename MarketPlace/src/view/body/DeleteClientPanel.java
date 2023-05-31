@@ -24,6 +24,7 @@ public class DeleteClientPanel extends JPanel {
 	private JTextField identification;
 	private JButton deleteButton;
 
+
 	public DeleteClientPanel(ActionListener actionListener) {
 
 		this.setBackground(ColorConstants.SOFT_PURPLE);

@@ -1,14 +1,13 @@
 package model;
 
-public class Client implements Comparable<Client>{
+public class Client implements Comparable<Client> {
 	private String documentType;
 	private long documentNumber;
 	private String reasonSocial;
 	private String address;
 	private String phone;
 
-	public Client(String documentType, long documentNumber, String reasonSocial, 
-			String addres, String phone) {
+	public Client(String documentType, long documentNumber, String reasonSocial, String addres, String phone) {
 		super();
 		this.documentType = documentType;
 		this.documentNumber = documentNumber;

@@ -1,12 +1,12 @@
 package model;
 
-public class ProductStock implements Comparable<ProductStock>{
+public class ProductStock implements Comparable<ProductStock> {
 	private String name;
 	private int code;
 	private double tax;
 	private double priceSale;
 	private int quantity;
-	
+
 	public ProductStock(String name, int code, double tax, double priceSale) {
 		super();
 		this.name = name;
@@ -60,5 +60,5 @@ public class ProductStock implements Comparable<ProductStock>{
 	public int compareTo(ProductStock other) {
 		return Integer.compare(this.code, other.code);
 	}
-	
+
 }

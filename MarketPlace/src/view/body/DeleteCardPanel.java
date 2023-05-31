@@ -41,7 +41,7 @@ public class DeleteCardPanel extends JPanel{
 		JPanel dataPanel = new JPanel();
 		dataPanel.setLayout(new BorderLayout());
 		dataPanel.setBackground(ColorConstants.LIGHT_BROWN);
-		dataPanel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
+		dataPanel.setBorder(BorderFactory.createEmptyBorder(20, 10, 20, 10));
 		
 		this.codeText = new JLabel(codeText);
 		this.codeText.setFont(FontConstants.PUCK_BOLD_PLAIN_FONT_16);

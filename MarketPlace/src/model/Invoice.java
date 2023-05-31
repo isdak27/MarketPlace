@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 
-public class Invoice implements Comparable<Invoice>{
+public class Invoice implements Comparable<Invoice> {
 	private int code;
 	private Client client;
 	private ArrayList<ProductInvoice> products;
@@ -24,6 +24,15 @@ public class Invoice implements Comparable<Invoice>{
 		this.code = code;
 		this.client = client;
 		this.products = products;
+		this.generationDate = generationDate;
+		this.typeTerm = typeTerm;
+	}
+	
+	public Invoice(int code, Client client, Date generationDate, String typeTerm) {
+		super();
+		this.code = code;
+		this.client = client;
+		this.products = new ArrayList<>();
 		this.generationDate = generationDate;
 		this.typeTerm = typeTerm;
 	}

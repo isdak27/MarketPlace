@@ -47,29 +47,29 @@ public class AppController implements ActionListener {
 			break;
 		case C_DELETE_CLIENT_ACTION:
 			backend.deleteClient(frontend.getDeleteActionCode());
-			frontend.updateTable(backend.getUsers());
 			JsonReaderWriter.writeClientsToJson(backend.getUsers());
+			frontend.updateTable(backend.getUsers());
 			break;
 		case C_DELETE_INVOICE:
 			frontend.openDeleteInvoicePanel();
 			break;
 		case C_DELETE_INVOICE_ACTION:
 			backend.deleteInvoice(frontend.getDeleteActionCodeInvoice());
-			frontend.updateTableInvoice(backend.getIssuedInvoices());
 			JsonReaderWriter.writeInvoicesToJson(backend.getIssuedInvoices());
+			frontend.updateTableInvoice(backend.getIssuedInvoices());
 			break;
 		case C_DELETE_PRODUCT:
 			frontend.openDeleteProductPanel();
 			break;
 		case C_DELETE_PRODUCT_ACTION:
 			backend.deleteProduct(frontend.getDeleteActionCodeProduct());
-			frontend.updateTableProducts(backend.getStock());
 			JsonReaderWriter.writeProductsToJson(backend.getStock());
+			frontend.updateTableProducts(backend.getStock());
 			break;
 		case C_SAVE_CLIENT:
 			backend.addClient(frontend.clientDataReceptor());
-			frontend.updateTable(backend.getUsers());
 			JsonReaderWriter.writeClientsToJson(backend.getUsers());
+			frontend.updateTable(backend.getUsers());
 			break;
 		case C_SAVE_INVOICE:
 //			backend.add(frontend.clientDataReceptor());

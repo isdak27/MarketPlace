@@ -68,6 +68,15 @@ public class Market {
 			this.users.add(client);
 		}
 	}
+	
+	public Client clientSearch(long documentNumber) {
+			Collections.sort(this.users);
+			int position = Collections.binarySearch(this.users,new Client(null,documentNumber, null, null, null) );
+			if (position >= 0) {
+				return this.users.get(position);
+			}
+			return null;
+	}
 
 	public void addClient(String documentType, int documentNumber, String reasonSocial, String addres, String phone) {
 		Client client = new Client(documentType, documentNumber, reasonSocial, addres, phone);
@@ -105,6 +114,19 @@ public class Market {
 			this.issuedInvoices.add(invoiceinIssue);
 		}
 	}
+	
+	public void addInvoice(int code,long documentNumber, ArrayList<ProductInvoice> products, Date generationDate,
+			String typeTerm) {
+		Invoice invoiceinIssue = new Invoice(client, products, generationDate, typeTerm);
+		if (!this.issuedInvoices.isEmpty()) {
+			Collections.sort(this.issuedInvoices);
+			if (Collections.binarySearch(this.issuedInvoices, invoiceinIssue) < 0) {
+				this.issuedInvoices.add(invoiceinIssue);
+			}
+		} else {
+			this.issuedInvoices.add(invoiceinIssue);
+		}
+	}
 
 	public void addInvoice(Invoice invoiceinIssue) {
 		if (!this.issuedInvoices.isEmpty()) {
@@ -127,9 +149,12 @@ public class Market {
 
 	public void addinvoiceProduct(Invoice invoiceinIssue, ProductStock target, int quantity) {
 		if (this.stockReviewer(target, quantity)) {
-			target.setQuantity(target.getQuantity() - quantity);
+			int actualQuantity = invoiceinIssue.getProducts().size();
 			invoiceinIssue.addinvoiceProduct(new ProductInvoice(target.getName(), target.getCode(), target.getTax(),
 					target.getPriceSale(), quantity));
+			if(invoiceinIssue.getProducts().size()>actualQuantity) {
+				target.setQuantity(target.getQuantity() - quantity);
+			}
 		}
 	}
 

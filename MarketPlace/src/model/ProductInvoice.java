@@ -40,5 +40,5 @@ public class ProductInvoice implements Comparable<ProductInvoice> {
 	public int compareTo(ProductInvoice other) {
 		return Integer.compare(this.code, other.code);
 	}
-	
+
 }

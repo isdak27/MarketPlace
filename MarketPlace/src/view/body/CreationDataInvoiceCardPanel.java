@@ -31,7 +31,7 @@ public class CreationDataInvoiceCardPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	public CreationDataInvoiceCardPanel(JTextField client, String clientText, JTextField code, String codeText, JComboBox<String> term, String termText,
-			JTextField date, String dateText, JTextField product, String productText, JButton addButton) {
+			JTextField date, String dateText, JTextField product, String productText, JTextField quantity, String quantityText, JButton addButton) {
 		this.setBackground(ColorConstants.LIGHT_BROWN);
 		this.setBorder(new EmptyBorder(50, 10, 50, 10));
 		this.setLayout(new BorderLayout());
@@ -46,7 +46,8 @@ public class CreationDataInvoiceCardPanel extends JPanel {
 		dateDescription.setFont(FontConstants.PUCK_BOLD_PLAIN_FONT_16);
 		JLabel productDescription = new JLabel(productText);
 		productDescription.setFont(FontConstants.PUCK_BOLD_PLAIN_FONT_16);
-		JLabel empty = new JLabel(" ");
+		JLabel quantityDescription = new JLabel(quantityText);
+		quantityDescription.setFont(FontConstants.PUCK_BOLD_PLAIN_FONT_16);
 		JLabel empty2 = new JLabel(" ");
 
 		JPanel basicData = new JPanel();
@@ -76,9 +77,10 @@ public class CreationDataInvoiceCardPanel extends JPanel {
 		productsBasicData.setBackground(ColorConstants.LIGHT_BROWN);
 
 		productsBasicData.add(productDescription);
-		productsBasicData.add(empty);
+		productsBasicData.add(quantityDescription);
 		productsBasicData.add(empty2);
 		productsBasicData.add(product);
+		productsBasicData.add(quantity);
 		productsBasicData.add(addButton);
 
 		String[] columnas = { TextConstants.PRODUCT_TEXT, TextConstants.TAX_TEXT, TextConstants.PRICE_TEXT,

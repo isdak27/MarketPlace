@@ -18,7 +18,6 @@ import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 import control.Commads;
-import model.Client;
 import model.Invoice;
 import model.ProductInvoice;
 import persistence.JsonReaderWriter;

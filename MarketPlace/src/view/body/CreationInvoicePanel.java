@@ -27,6 +27,7 @@ public class CreationInvoicePanel extends JPanel {
 	private JComboBox<String> term;
 	private JTextField date;
 	private JTextField product;
+	private JTextField quantity;
 	private JButton save;
 	private JButton addButton;
 
@@ -45,6 +46,7 @@ public class CreationInvoicePanel extends JPanel {
 		term.setFont(FontConstants.PUCK_BOLD_PLAIN_FONT_16);
 		date = new RoundedJTextField();
 		product = new RoundedJTextField();
+		quantity = new RoundedJTextField();
 		save = new JButton();
 		save.addActionListener(actionListener);
 		save.setActionCommand(Commads.C_SAVE_INVOICE.toString());
@@ -59,7 +61,7 @@ public class CreationInvoicePanel extends JPanel {
 
 		CreationInvoiceCardPanel creationInvoiceCardPanel = new CreationInvoiceCardPanel(
 				TextConstants.CREATE_INVOICE_BUTTON_TEXT, client, TextConstants.CLIENT_TEXT, code,TextConstants.CODE_TEXT, term,
-				TextConstants.TERM_TEXT, date, TextConstants.DATE_TEXT, product, TextConstants.PRODUCT_TEXT, addButton,
+				TextConstants.TERM_TEXT, date, TextConstants.DATE_TEXT, product, TextConstants.PRODUCT_TEXT, quantity, TextConstants.UNITS_TEXT, addButton,
 				save);
 
 		this.add(creationInvoiceCardPanel);
